@@ -42,7 +42,7 @@ export default function Home() {
             transitionTime={5}
           >
             {movieList.map((movie) => (
-              <Link href={`/detail/${movie.id}`} className="relative">
+              <Link href={`/movie/${movie.id}`} className="relative">
                 <div className="h-[900px]">
                   <img
                     src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
