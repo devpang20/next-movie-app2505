@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { data } from "@/temp/data";
 import Link from "next/link";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -27,7 +26,13 @@ export default function Home() {
   const [movieList, setMovieList] = useState<Movie[]>([]);
 
   useEffect(() => {
-    setMovieList(data.results);
+    fetch(
+      `https://api.themoviedb.org/3/movie/popular?language=ko-KR&api_key=${process.env.NEXT_PUBLIC_API_KEY}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setMovieList(data.results);
+      });
   }, []);
 
   return (
