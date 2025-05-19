@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { data } from "@/temp/data";
+import Link from "next/link";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 export interface Movie {
   id: number;
   title: string;
@@ -21,35 +24,44 @@ export interface MovieResponse {
   total_results: number;
 }
 export default function Home() {
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const [movieList, setMovieList] = useState<Movie[]>([]);
 
   useEffect(() => {
-    setMovies(data.results);
+    setMovieList(data.results);
   }, []);
 
   return (
-    <div>
-      <h1>메인 페이지</h1>
-      <ul>
-        {movies.map((movie) => {
-          return (
-            <li key={movie.id}>
-              <h2>{movie.title}</h2>
-              <p>{movie.overview}</p>
-              <p>평점: {movie.vote_average}</p>
-              <p>투표 수: {movie.vote_count}</p>
-              <p>개봉일: {movie.release_date}</p>
-              <p>장르: {movie.genre_ids.join(", ")}</p>
-              <img
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-                width={200}
-                height={300}
-              />
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+    <>
+      <div className="flex justify-center items-center">
+        <div className="flex items-center">
+          <Carousel
+            showThumbs
+            autoPlay
+            infiniteLoop
+            showStatus={false}
+            transitionTime={5}
+          >
+            {movieList.map((movie) => (
+              <Link href={`/detail/${movie.id}`} className="relative">
+                <div className="h-[900px]">
+                  <img
+                    src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+                    alt="썸네일"
+                    className="block"
+                  />
+                </div>
+                <div className="absolute bottom-0 w-full text-left p-20 bg-gradient-to-t from-black to-transparent text-white">
+                  <h5 className="text-4xl">{movie.original_title}</h5>
+                  <p className="text-base felx items-center gap-3 my-5">
+                    {movie.release_date} / 🌟 {movie.vote_average}
+                  </p>
+                  <p className="italic w-4/6">{movie.orverview}</p>
+                </div>
+              </Link>
+            ))}
+          </Carousel>
+        </div>
+      </div>
+    </>
   );
 }
