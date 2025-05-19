@@ -4,24 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-export interface Movie {
-  id: number;
-  title: string;
-  overview: string;
-  poster_path: string;
-  backdrop_path: string;
-  release_date: string;
-  vote_average: number;
-  vote_count: number;
-  genre_ids: number[];
-}
+import { Movie } from "@/type/movie";
 
-export interface MovieResponse {
-  page: number;
-  results: Movie[];
-  total_pages: number;
-  total_results: number;
-}
 export default function Home() {
   const [movieList, setMovieList] = useState<Movie[]>([]);
 

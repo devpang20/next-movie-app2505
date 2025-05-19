@@ -1,24 +1,11 @@
 "use client";
 import { useParams } from "next/navigation";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-
-export interface Movie {
-  id: number;
-  title: string;
-  overview: string;
-  poster_path: string;
-  backdrop_path: string;
-  release_date: string;
-  vote_average: number;
-  vote_count: number;
-  genre_ids: number[];
-}
 
 export default function MoviePage() {
   const param = useParams();
 
-  const [movie, setMovie] = useState<Movie>();
+  const [movie, setMovie] = useState<movie>();
 
   useEffect(() => {
     fetch(
